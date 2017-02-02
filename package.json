@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/feedcast/botathon/issues"
   },
-  "homepage": "https://github.com/feedcast/botathon#readme"
+  "homepage": "https://github.com/feedcast/botathon#readme",
+  "dependencies": {
+    "calamars": "^0.17.6"
+  }
 }
