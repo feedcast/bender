@@ -6,10 +6,19 @@ messageList['welcome'] = {
 }
 
 
+messageList['greeting'] = {
+	ptBr: 'Bem vindo!',
+	enUs: 'Welcome!'
+}
+
+messageList['stage0'] = {
+	ptBr: 'Escolha uma das opções abaixo',
+	enUs: 'Choose one of the next options'
+}
 
 
 
 
-const messages = (locale, id) => messageList[id][locale == 'pt_BR'? 'ptBr': 'enUs']
+const messages = (id) => messageList[id].ptBr
 
 module.exports = messages
