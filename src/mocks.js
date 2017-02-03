@@ -11,8 +11,8 @@ const channels = [
 ];
 const episodes = [
   { title:'NerdCast 552 - Novas teorias e conspirações', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.com.br/nerdcast/nerdcast-552-novas-teorias-e-conspiracoes'},
-  { title:'Empreendedor 25 - Resoluções e planejamento', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.com.br/nerdcast/empreendedor-25-resolucoes-e-planejamento'},
-  { title:'NerdCast 551 - Turistas babacas, na humildade', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.com.br/nerdcast/nerdcast-551-turistas-babacas-na-humildade'},
+  { title:'Mergulho Diário 03/02/17 - Mt 8:23-27', image_url:'http://i1.sndcdn.com/avatars-000287133751-m0lkgn-original.jpg', link:'https://feedcast.com.br/igreja-rio/mergulho-diario-03-barra-02-barra-17-mt-8-23-27'},
+  { title:'Interview with Lauren Cutrell (part 1)', image_url:'https://media.simplecast.com/podcast/image/363/1471485029-artwork.jpg', link:'https://feedcast.com.br/developer-tea/interview-with-lauren-cutrell-part-1'},
   { title:'NerdCast 550 - O Melhor de 550 Nerdcasts!', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.com.br/nerdcast/nerdcast-550-o-melhor-de-550-nerdcasts?time=17'}
 ];
 

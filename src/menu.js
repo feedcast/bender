@@ -1,11 +1,6 @@
 const menu = [
     {
         type: 'postback',
-        title: 'Pesquisar Canais',
-        payload: 'search'
-    },
-    {
-        type: 'postback',
         title: 'Voltar para o início',
         payload: 'restart'
     },
