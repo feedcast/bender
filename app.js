@@ -30,7 +30,14 @@ const onPostback = function(updateEvent){
     let payload = updateEvent.update.postback.payload;
     let p = Helpers.isJSON(payload)? Helpers.getJSON(payload).type : payload
 
-    if(payloads[p]) payloads[p](updateEvent, storage)
+    if(p.indexOf('/') !== -1){
+      let p1 = p.split('/')[0]
+      let p2 = p.split('/')[1]
+      if(payloads[p1]) payloads[p1](updateEvent, storage, p2)
+    } else {
+      if(payloads[p]) payloads[p](updateEvent, storage)
+    }
+
   })
 }
 
