@@ -103,6 +103,20 @@ payloads['restart'] = function(u, s){
   Forks.initial.resolve(u,s)
 }
 
+payloads['categories'] = function(u, s){
+  u.bot.sendMessage({
+    userId: u.update.sender.id,
+    attachment: mocks.categoriesChannel()
+  }); 
+}
+
+payloads['categories_show'] = function(u, s, id){
+ u.bot.sendMessage({
+    userId: u.update.sender.id,
+    attachment: mocks.categoriesShow(id)    
+  }); 
+}
+
 payloads['choose_channel'] = function(u, s, id){
   u.bot.sendMessage({
     userId: u.update.sender.id,
