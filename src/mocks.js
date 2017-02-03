@@ -29,7 +29,7 @@ const listCategories = [
 
 const ontologyChanel = [
   { feedcast_url:'cafe-brasil-podcast', title:'Café Brasil Podcast', image_url:'http://i.imgur.com/GJlkcPM.png', id:'1', forekey: '1'},
-  { feedcast_url:'pretinho-basico', title:'Pretinho Básico', image_url:'http://i.imgur.com/GJlkcPM.png', id:'2', forekey: '1'},
+  { feedcast_url:'pretinho-basico', title:'Pretinho Básico', image_url:'http://i1.sndcdn.com/avatars-000128044269-imdrgb-original.jpg', id:'2', forekey: '1'},
   { feedcast_url:'mundo-freak', title:'Mundo Freak', image_url:'http://www.mundofreak.com.br/wp-content/uploads/powerpress/mfc.jpg', id:'3', forekey: '2'},  
   { feedcast_url:'scicast', title:'SciCast', image_url:'http://deviante.com.br/wp-content/uploads/2016/03/scicast2_itunes_By_Deviante2.jpg', id:'4', forekey: '2'},  
   { feedcast_url:'elucidando-podcast', title:'Elucidando Podcast', image_url:'https://i1.sndcdn.com/avatars-000269441894-k5mai7-large.jpg', id:'5', forekey: '3'},  
@@ -53,11 +53,6 @@ const mocks = {
       image_url: i.image_url,
       subtitle: i.description,
       buttons: [
-        {
-          type:"postback",
-          title:"Listar episódios",
-          payload:`episodes/${i.id}`
-        },
         {
           type: 'web_url',
           title: 'Ver no Feedcast',
@@ -136,7 +131,7 @@ const mocks = {
       ]
     }))
     c.push({
-      title: "Quer ver mais categoria?",
+      title: "Quer ver mais categorias?",
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
@@ -153,11 +148,11 @@ const mocks = {
   },
 
   // mostar canais selecionado
-  categoriesShow: (id) => {    
+  categoriesShow: (id) => {
     let channelGroup = ontologyChanel.filter(obj => obj.forekey === id)
     let c = channelGroup.map(i => ({
       title: i.title,
-      image_url: i.image_url,      
+      image_url: i.image_url,
       buttons: [
         {
           type: 'web_url',
@@ -166,12 +161,13 @@ const mocks = {
         }
       ]
     }))
+    let category = listCategories.filter(item => item.id == id)[0]
     c.push({
-      title: "Quer ver mais canais?",
+      title: "Quer ver mais canais desta categoria?",
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
-        url: `https://feedcast.com.br/`
+        url: `https://feedcast.com.br/categories/${category.url}`
       }]
     })
     return {

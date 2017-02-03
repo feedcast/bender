@@ -57,7 +57,7 @@ payloads['b'] = function(u, s){
         buttons:[
           {
             type:"postback",
-            title:"Lista de Canais",
+            title:"Novos Canais",
             payload:'channels_list'
           },
           {
@@ -86,6 +86,8 @@ payloads['channels_list'] = function(u, s){
     userId: u.update.sender.id,
     attachment: mocks.channelList()
   });
+  s[u.update.sender.id].step = 0
+  s[u.update.sender.id].locate = null
 }
 
 
@@ -94,6 +96,9 @@ payloads['recent_episodes'] = payloads['episodes'] = function(u, s){
     userId: u.update.sender.id,
     attachment: mocks.recentEpisodesList()
   });
+  s[u.update.sender.id].step = 0
+  s[u.update.sender.id].locate = null
+  // Forks.initial.resolve(u,s)
 }
 
 
@@ -107,14 +112,16 @@ payloads['categories'] = function(u, s){
   u.bot.sendMessage({
     userId: u.update.sender.id,
     attachment: mocks.categoriesChannel()
-  }); 
+  });
 }
 
 payloads['categories_show'] = function(u, s, id){
  u.bot.sendMessage({
     userId: u.update.sender.id,
-    attachment: mocks.categoriesShow(id)    
-  }); 
+    attachment: mocks.categoriesShow(id)
+  });
+ s[u.update.sender.id].step = 'f';
+ s[u.update.sender.id].locate = 1;
 }
 
 payloads['choose_channel'] = function(u, s, id){
