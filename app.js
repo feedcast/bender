@@ -18,7 +18,7 @@ const onMessage = function(updateEvent){
     step = step === 0? 'initial': step
 
     if(Forks[step] && Forks[step].resolve)
-      Forks[step].resolve(updateEvent, storage)
+      Forks[step].resolve(updateEvent, storage, mybot)
   })
 };
 

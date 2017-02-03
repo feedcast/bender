@@ -3,15 +3,17 @@ const Helpers = require('./../helpers');
 class A {
 
 
-	static resolve(u, s){
+	static resolve(u, s, bot){
 
 		let { id: userId, first_name: name, locate } = s[u.update.sender.id],
-        messageText = u.update.message.text;
+        messageText = u.update.message.text;    
 
-		switch(true){
+    bot.setSenderActions('typing_on', userId);
+    switch(true){
       case locate === 1:
         let arrayUrls = messageText.split(' ').filter(e => Helpers.urlRegex.exec(e) !== null), message;
         if(arrayUrls.length > 0){
+
           Helpers.testFeedUrl(arrayUrls[0], (xmlParsed, error) => {
             if(error){
               if(Helpers.findSome(['não', 'nao', 'no', 'ñ', 'not'], messageText)){
@@ -28,7 +30,7 @@ class A {
                     text: message
                 })
               }
-            } else {
+            } else {              
               message = `Muito obrigado por enviar sua colaboração para o Feedcast! O podcast ${xmlParsed[0].title[0]} será adicionado ao nosso catalogo em breve!`;
               u.bot.sendMessage({
                   userId,
