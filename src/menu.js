@@ -2,12 +2,12 @@ const menu = [
     {
         type: 'postback',
         title: 'Pesquisar Canais',
-        payload: '/search'
+        payload: 'search'
     },
     {
         type: 'postback',
         title: 'Voltar para o início',
-        payload: '/restart'
+        payload: 'restart'
     },
     {
         type: 'web_url',

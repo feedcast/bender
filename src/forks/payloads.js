@@ -1,4 +1,5 @@
 const messages = require('./../messages');
+const Forks = require('./forks');
 const payloads = {}
 
 payloads['legacy-welcome'] = function(u, s){
@@ -37,7 +38,6 @@ payloads['a'] = function(u, s){
   });
   s[u.update.sender.id].step = 'a';
   s[u.update.sender.id].locate = 1;
-  console.log('escolheu cadastrar')
 }
 
 
@@ -46,7 +46,14 @@ payloads['a'] = function(u, s){
 payloads['b'] = function(u, s){
   s[u.update.sender.id].step = 'b';
   s[u.update.sender.id].locate = 1;
-  console.log('escolheu ouvir')
+}
+
+
+
+payloads['restart'] = function(u, s){
+  s[u.update.sender.id].step = 0
+  s[u.update.sender.id].locate = null
+  Forks.initial.resolve(u,s)
 }
 
 

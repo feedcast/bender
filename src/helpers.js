@@ -1,6 +1,20 @@
+const parseString = require('xml2js').parseString;
+const request = require('request');
+
+
 class Helpers {
 
+  static findSome(arrayWords, stringText){
+    let text = stringText.toLowerCase();
+    for(let i in arrayWords)
+      if(text.indexOf(arrayWords[i]) !== -1)
+        return true
+    return false
+  }
 
+  static get urlRegex(){
+    return /((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/gi
+  }
 
 	static isJSON(string){
 		try{
@@ -47,6 +61,42 @@ class Helpers {
         resolve()
       } } catch(e){ reject(e) }
     })
+  }
+
+
+  static testFeedUrl(url, callback){
+    try{
+      if(url.indexOf('http') === -1) url = `http://${url}`;
+      request.get(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          parseString(body, function (err, result) {
+            if(err) {
+              callback(null, true, err);
+            } else {
+              var findChannel = function(obj){
+                if(typeof obj['channel'] !== 'undefined'){
+                  return obj['channel']
+                } else {
+                  return findChannel(obj[Object.keys(obj)[0]])
+                }
+              }
+              callback(findChannel(result));
+            }
+          });
+        } else {
+          callback(null, true, error);
+        }
+      });
+    } catch(e){
+      callback(null, true, e);
+    }
+  }
+
+
+
+  static setInitial(s){
+    s[u.update.sender.id].step = 0
+    s[u.update.sender.id].locate = null
   }
 
 }

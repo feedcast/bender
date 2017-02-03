@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/feedcast/botathon#readme",
   "dependencies": {
-    "calamars": "^0.17.6"
+    "calamars": "^0.17.6",
+    "request": "^2.79.0",
+    "xml2js": "^0.4.17"
   }
 }
