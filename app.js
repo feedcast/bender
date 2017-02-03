@@ -2,25 +2,60 @@ const FacebookMessengerBot = require('calamars').FacebookMessengerBot;
 
 const messages = require('./src/messages');
 const menu = require('./src/menu');
+const helpers = require('./src/helpers');
+
+let store = [];
 
 
 const myMessageListener = function(updateEvent){
     console.log('received message:', updateEvent.update.message.text);
     // reply with the same received message
-    let userInfo = mybot.getUserInfo(updateEvent.update.sender.id);
+    //let userInfo = mybot.getUserInfo(updateEvent.update.sender.id);
+    //userInfo.then(data => {
+    //})
 
-
-    userInfo.then(data => {
-      updateEvent.bot.sendMessage({
-          userId: updateEvent.update.sender.id,
-          text: messages(data.locale, 'welcome')
-      })
+    updateEvent.bot.sendMessage({
+        userId: updateEvent.update.sender.id,
+        text:'mensagem texto'
     })
 
 };
 
 const onPostback = function(updateEvent){
-    console.log('on post back')
+    let postback = updateEvent.update.postback;
+    let payload = updateEvent.update.postback.payload;
+
+    console.log('onPostback', postback, payload)
+
+    if(helpers.isJSON(payload) && helpers.getJSON(payload).type === 'legacy-welcome'){
+
+      updateEvent.bot.sendMessage({
+        userId: updateEvent.update.sender.id,
+        attachment:{
+        type:"template",
+        payload:{
+          template_type:"button",
+          text: messages('stage0'),
+          buttons:[
+            {
+              type:"postback",
+              title:"Cadastrar um podcast",
+              payload:'a'
+            },
+            {
+              type:"postback",
+              title:"Ouvir um podcast",
+              payload:"b"
+            }
+          ]
+        }
+      }
+    });
+
+
+  }
+
+
 }
 
 const mybot = new FacebookMessengerBot({
@@ -38,7 +73,21 @@ mybot.start().then(function(){
     console.log(`server is running on port ${process.env.PORT || 3000}`);
     // Get Started button reply
     mybot.setWelcomeMessage({
-        text: 'Bem vindo, deseja ouvir um podcast ?'
+        text: messages('greeting')
+      //   quick_replies:[
+      //   {
+      //     content_type:"text",
+      //     title:"Red",
+      //     payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED",
+      //     image_url:"http://petersfantastichats.com/img/red.png"
+      //   },
+      //   {
+      //     content_type:"text",
+      //     title:"Green",
+      //     payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN",
+      //     image_url:"http://petersfantastichats.com/img/green.png"
+      //   }
+      // ]
     }).then(welcomeMsgSetResult =>
         console.log('welcomeMsgSetResult', welcomeMsgSetResult)
     ).catch(e => {
