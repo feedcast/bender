@@ -1,120 +1,36 @@
 const FacebookMessengerBot = require('calamars').FacebookMessengerBot;
 
-const messages = require('./src/messages');
+const Forks = require('./src/forks/forks');
+const payloads = require('./src/forks/payloads');
+
 const menu = require('./src/menu');
-const helpers = require('./src/helpers');
+const Helpers = require('./src/helpers');
+const messages = require('./src/messages');
 
 let storage = [];
 
-const setUserStorage = updateEvent => {
-  return new Promise((resolve, reject) => {
-    try{
-      if("undefined" === typeof storage[updateEvent.update.sender.id]){
-        let userInfo = mybot.getUserInfo(updateEvent.update.sender.id);
-        userInfo.then(data => {
-          storage[updateEvent.update.sender.id] = {
-            id: updateEvent.update.sender.id,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            profile_pic: data.profile_pic,
-            locale: data.locale,
-            gender: data.gender,
-            timezone: data.timezone,
-            step: 0,
-            locate: null,
-            time: Date.now()
-          }
-          resolve()
-        })
-      } else {
-        resolve()
-      }
-    } catch(e){
-      reject(e)
-    }
-  })
-}
 
-const myMessageListener = function(updateEvent){
-  setUserStorage(updateEvent)
+
+const onMessage = function(updateEvent){
+  Helpers.setUserStorage(updateEvent, storage, mybot)
   .then(() => {
-    let { id: userId, first_name: name, step, locate } = storage[updateEvent.update.sender.id],
-        messageText = updateEvent.update.message.text;
+    let { step } = storage[updateEvent.update.sender.id]
 
-    switch(true){
-      case step == 'a' && locate === 1:
-        messageText = `busca url ${updateEvent.update.message.text}`
-      break;
-    }
-
-    updateEvent.bot.sendMessage({
-        userId,
-        text: messageText
-    })
+    if(Forks[step] && Forks[step].resolve)
+      Forks[step].resolve(updateEvent, storage)
   })
 };
 
+
+
 const onPostback = function(updateEvent){
-    setUserStorage(updateEvent)
-    .then(()=>{
-      let payload = updateEvent.update.postback.payload;
-      console.log('onPostback', updateEvent.update.sender.id, payload)
-      let { id: userId, first_name: name } = storage[updateEvent.update.sender.id];
+  Helpers.setUserStorage(updateEvent, storage, mybot)
+  .then(()=>{
+    let payload = updateEvent.update.postback.payload;
+    let p = Helpers.isJSON(payload)? Helpers.getJSON(payload).type : payload
 
-      switch(true){
-        case helpers.isJSON(payload) &&
-        helpers.getJSON(payload).type === 'legacy-welcome':
-            updateEvent.bot.sendMessage({
-              userId: updateEvent.update.sender.id,
-              attachment:{
-              type:"template",
-              payload:{
-                template_type:"button",
-                text: messages('stage0'),
-                buttons:[
-                  {
-                    type:"postback",
-                    title:"Cadastrar um podcast",
-                    payload:'a'
-                  },
-                  {
-                    type:"postback",
-                    title:"Ouvir um podcast",
-                    payload:"b"
-                  }
-                ]
-              }
-            }
-          });
-        break;
-        case payload == 'a':
-          updateEvent.bot.sendMessage({
-              userId,
-              text:`Ok, ${name}! Envie a url que você deseja adicionar`
-          });
-
-          storage[updateEvent.update.sender.id].step = 'a';
-          storage[updateEvent.update.sender.id].locate = 1;
-          console.log('escolheu cadastrar')
-        break;
-        case payload == 'b':
-          storage[updateEvent.update.sender.id].step = 'b';
-          storage[updateEvent.update.sender.id].locate = 1;
-          console.log('escolheu ouvir')
-        break;
-      }
-    })
-
-
-
-
-
-
-
-
-
-
-
+    if(payloads[p]) payloads[p](updateEvent, storage)
+  })
 }
 
 const mybot = new FacebookMessengerBot({
@@ -123,7 +39,7 @@ const mybot = new FacebookMessengerBot({
     verifyToken: process.env.FB_VERIFY_TOKEN,
     pageTokens: [process.env.FB_PAGE_ACCESS_TOKEN],
     listeners: {
-        onMessage: myMessageListener,
+        onMessage,
         onPostback
     }
 });
@@ -140,7 +56,6 @@ mybot.start().then(function(){
         console.error(e.message);
     });
 
-    // Persistent Menu
     mybot.setThreadSettings({
         type: 'call_to_actions',
         state: 'existing_thread',
