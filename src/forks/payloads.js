@@ -84,15 +84,15 @@ payloads['b'] = function(u, s){
 payloads['channels_list'] = function(u, s){
   u.bot.sendMessage({
     userId: u.update.sender.id,
-    attachment: mocks.channelList
+    attachment: mocks.channelList()
   });
 }
 
 
-payloads['recent_episodes'] = function(u, s){
+payloads['recent_episodes'] = payloads['episodes'] = function(u, s){
   u.bot.sendMessage({
     userId: u.update.sender.id,
-    attachment: mocks.recentEpisodesList
+    attachment: mocks.recentEpisodesList()
   });
 }
 
