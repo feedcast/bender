@@ -10,10 +10,10 @@ const channels = [
   { feedcast_url:'anticast', title:'AntiCast', image_url:'http://i1.sndcdn.com/avatars-000242439656-0umewh-original.jpg', feed_url:'http://feeds.feedburner.com/anticastdesign', description:'Podcast sobre política, história, artes e qualquer outra forma de subversão. ', id:'9'}
 ];
 const episodes = [
-  { title:'NerdCast 552 - Novas teorias e conspirações', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.com.br/nerdcast/nerdcast-552-novas-teorias-e-conspiracoes'},
-  { title:'Mergulho Diário 03/02/17 - Mt 8:23-27', image_url:'http://i1.sndcdn.com/avatars-000287133751-m0lkgn-original.jpg', link:'https://feedcast.com.br/igreja-rio/mergulho-diario-03-barra-02-barra-17-mt-8-23-27'},
-  { title:'Interview with Lauren Cutrell (part 1)', image_url:'https://media.simplecast.com/podcast/image/363/1471485029-artwork.jpg', link:'https://feedcast.com.br/developer-tea/interview-with-lauren-cutrell-part-1'},
-  { title:'NerdCast 550 - O Melhor de 550 Nerdcasts!', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.com.br/nerdcast/nerdcast-550-o-melhor-de-550-nerdcasts?time=17'}
+  { title:'NerdCast 552 - Novas teorias e conspirações', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.io/nerdcast/nerdcast-552-novas-teorias-e-conspiracoes'},
+  { title:'Mergulho Diário 03/02/17 - Mt 8:23-27', image_url:'http://i1.sndcdn.com/avatars-000287133751-m0lkgn-original.jpg', link:'https://feedcast.io/igreja-rio/mergulho-diario-03-barra-02-barra-17-mt-8-23-27'},
+  { title:'Interview with Lauren Cutrell (part 1)', image_url:'https://media.simplecast.com/podcast/image/363/1471485029-artwork.jpg', link:'https://feedcast.io/developer-tea/interview-with-lauren-cutrell-part-1'},
+  { title:'NerdCast 550 - O Melhor de 550 Nerdcasts!', image_url:'https://jovemnerd.com.br/wp-content/themes/jovemnerd/assets/images/nc-feed.jpg', link:'https://feedcast.io/nerdcast/nerdcast-550-o-melhor-de-550-nerdcasts?time=17'}
 ];
 
 const listCategories = [
@@ -56,7 +56,7 @@ const mocks = {
         {
           type: 'web_url',
           title: 'Ver no Feedcast',
-          url: `https://feedcast.com.br/${i.feedcast_url}`
+          url: `https://feedcast.io/${i.feedcast_url}`
         }
       ]
     }))
@@ -65,7 +65,7 @@ const mocks = {
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
-        url: `https://feedcast.com.br/`
+        url: `https://feedcast.io/`
       }]
     })
     return {
@@ -96,7 +96,7 @@ const mocks = {
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
-        url: `https://feedcast.com.br/`
+        url: `https://feedcast.io/`
       }]
     })
     return {
@@ -126,7 +126,7 @@ const mocks = {
         {
           type: 'web_url',
           title: 'Ver no Feedcast',
-          url: `https://feedcast.com.br/categories/${i.url}`
+          url: `https://feedcast.io/categories/${i.url}`
         }
       ]
     }))
@@ -135,7 +135,7 @@ const mocks = {
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
-        url: `https://feedcast.com.br/`
+        url: `https://feedcast.io/`
       }]
     })
     return {
@@ -157,7 +157,7 @@ const mocks = {
         {
           type: 'web_url',
           title: 'Ver no Feedcast',
-          url: `https://feedcast.com.br/${i.feedcast_url}`
+          url: `https://feedcast.io/${i.feedcast_url}`
         }
       ]
     }))
@@ -167,7 +167,7 @@ const mocks = {
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
-        url: `https://feedcast.com.br/categories/${category.url}`
+        url: `https://feedcast.io/categories/${category.url}`
       }]
     })
     return {

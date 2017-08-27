@@ -7,7 +7,7 @@ const menu = [
     {
         type: 'web_url',
         title: 'Ir para o site',
-        url: 'https://feedcast.com.br'
+        url: 'https://feedcast.io'
     }
 ]
 
