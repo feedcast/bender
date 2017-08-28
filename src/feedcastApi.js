@@ -4,7 +4,7 @@ const API_URL = process.env.REACT_APP_API_HOST || 'https://api.feedcast.io';
 class FeedcastApi {
   getChannels({page = 1, per_page = 24}){
     return new Promise((complete, reject) => {
-      http.get('GET', `${API_URL}/channels?page=${page}&per_page=${per_page}`, res => {
+      http.get(`${API_URL}/channels?page=${page}&per_page=${per_page}`, res => {
         var body = '';
 
         res.on('data', function(chunk){
