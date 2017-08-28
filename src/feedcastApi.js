@@ -3,21 +3,21 @@ const API_URL = process.env.REACT_APP_API_HOST || 'https://api.feedcast.io';
 class FeedcastApi {
   getChannels({page = 1, per_page = 24}){
     return new Promise((complete, reject) => {
-      const req = new XMLHttpRequest();
+      http.get('GET', `${API_URL}/channels?page=${page}&per_page=${per_page}`, res => {
+        var body = '';
 
-      req.open('GET', `${API_URL}/channels?page=${page}&per_page=${per_page}`, true);
+        res.on('data', function(chunk){
+            body += chunk;
+        });
 
-      req.onload = () => {
-        let result = JSON.parse(req.response)
-        result.total = req.getResponseHeader('total')
-        complete(result);
-      };
+        res.on('end', _ => {
+          let result = JSON.parse(body)
+          complete(result);
+        })
 
-      req.onerror = () => {
-        reject(req.statusText);
-      };
+      }).on('error',
+        _ => reject(req.statusText));
 
-      req.send();
     })
   }
 
