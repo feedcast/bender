@@ -1,3 +1,4 @@
+var http = require('http');
 const API_URL = process.env.REACT_APP_API_HOST || 'https://api.feedcast.io';
 
 class FeedcastApi {
