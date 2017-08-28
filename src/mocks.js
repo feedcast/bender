@@ -47,8 +47,10 @@ const ontologyChanel = [
 ]
 
 const mocks = {
-  channelList: () => {
-    let c = channels.map(i => ({
+  channelList: (channels_) => {
+    let c = channels_
+      .filter((a,n)=>n<9)
+      .map(i => ({
       title: i.title,
       image_url: i.image_url,
       subtitle: i.description,
@@ -56,7 +58,7 @@ const mocks = {
         {
           type: 'web_url',
           title: 'Ver no Feedcast',
-          url: `https://feedcast.io/${i.feedcast_url}`
+          url: `https://feedcast.io/${i.slug}`
         }
       ]
     }))
@@ -65,7 +67,7 @@ const mocks = {
       buttons: [{
         type: 'web_url',
         title: 'Veja no Feedcast',
-        url: `https://feedcast.io/`
+        url: `https://feedcast.io/channels`
       }]
     })
     return {

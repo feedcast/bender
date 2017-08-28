@@ -1,3 +1,4 @@
+const feedcastApi = require('./../feedcastApi');
 const messages = require('./../messages');
 const mocks = require('./../mocks');
 const Forks = require('./forks');
@@ -82,12 +83,16 @@ payloads['b'] = function(u, s){
 
 
 payloads['channels_list'] = function(u, s){
-  u.bot.sendMessage({
-    userId: u.update.sender.id,
-    attachment: mocks.channelList()
-  });
-  s[u.update.sender.id].step = 0
-  s[u.update.sender.id].locate = null
+  feedcastApi
+    .getChannels({ page: 1})
+    .then( data => {
+      u.bot.sendMessage({
+        userId: u.update.sender.id,
+        attachment: mocks.channelList(data.channels)
+      });
+      s[u.update.sender.id].step = 0
+      s[u.update.sender.id].locate = null
+    })
 }
 
 
